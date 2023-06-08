@@ -1,0 +1,37 @@
+
+def calculate_cells(city_size, population_density, average_calls_per_user, average_call_duration, available_channels, max_channels_per_base_station):
+    # Calculate the total number of users in the city
+    total_users = city_size * population_density
+
+    # Calculate the total number of calls made in the city per hour
+    total_calls_per_hour = total_users * average_calls_per_user
+
+    # Calculate the total number of channels required to handle the calls
+    total_channels_required = total_calls_per_hour * average_call_duration
+
+    # Calculate the total number of base stations required
+    base_stations_required = total_channels_required / max_channels_per_base_station
+
+    # Calculate the total number of cells required
+    cells_required = base_stations_required * 3
+
+    # Calculate the total number of sectors based on the given sectoring level
+    sectors_per_cell = 6
+    if cells_required > 0:
+        sectors_per_cell = 360 / cells_required
+
+    return cells_required, sectors_per_cell
+
+#These are values I randomy assigned to test the code
+
+city_size = 100  # Example city size in square kilometers
+population_density = 500  # Example population density (users per square kilometer)
+average_calls_per_user = 3  # Example average number of calls per user
+average_call_duration = 0.5  # Example average call duration in hours
+available_channels = 500  # Example total number of available channels
+max_channels_per_base_station = 50  # Example maximum channels per base station
+
+cells_required, sectors_per_cell = calculate_cells(city_size, population_density, average_calls_per_user,
+                                                  average_call_duration, available_channels, max_channels_per_base_station)
+print(f"The number of cells required is: {cells_required}")
+print(f"The number of sectors per cell is: {sectors_per_cell}")
